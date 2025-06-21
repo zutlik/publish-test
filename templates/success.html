@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script Triggered Successfully</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="success-page">
+            <div class="success-card">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                
+                <h1>Script Triggered Successfully!</h1>
+                <p class="script-name">Script: <strong>{{ script_id }}</strong></p>
+                
+                <div class="success-message">
+                    <p>Your Home Assistant script has been executed successfully.</p>
+                    <p>This URL has been used and is no longer valid.</p>
+                </div>
+                
+                <div class="success-actions">
+                    <a href="/" class="btn btn-primary">
+                        <i class="fas fa-home"></i> Back to Generator
+                    </a>
+                    <button onclick="window.close()" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Close Window
+                    </button>
+                </div>
+                
+                <div class="success-info">
+                    <p><i class="fas fa-info-circle"></i> You can generate new URLs anytime from the main interface.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

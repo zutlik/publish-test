@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error - Script URL Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="error-page">
+            <div class="error-card">
+                <div class="error-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                
+                <h1>Error</h1>
+                <p class="error-message">{{ message }}</p>
+                
+                <div class="error-details">
+                    <p>This could be due to:</p>
+                    <ul>
+                        <li>The URL has expired (tokens are valid for 10 minutes)</li>
+                        <li>The URL has already been used (single-use only)</li>
+                        <li>The script no longer exists</li>
+                        <li>A temporary issue with Home Assistant</li>
+                    </ul>
+                </div>
+                
+                <div class="error-actions">
+                    <a href="/" class="btn btn-primary">
+                        <i class="fas fa-home"></i> Generate New URL
+                    </a>
+                    <button onclick="window.close()" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Close Window
+                    </button>
+                </div>
+                
+                <div class="error-info">
+                    <p><i class="fas fa-info-circle"></i> Generate a fresh URL from the main interface to try again.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

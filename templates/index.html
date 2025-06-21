@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script URL Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-link"></i> Script URL Generator</h1>
+            <p class="subtitle">Generate temporary, internet-accessible URLs to trigger your Home Assistant scripts</p>
+        </header>
+
+        <main class="main-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-magic"></i> Generate Script URL</h2>
+                </div>
+                
+                <div class="card-body">
+                    <form id="generateForm" class="form">
+                        <div class="form-group">
+                            <label for="scriptSelect">
+                                <i class="fas fa-list"></i> Select Script
+                            </label>
+                            <select id="scriptSelect" name="script_id" required class="form-control">
+                                <option value="">Choose a script...</option>
+                                {% for script in scripts %}
+                                <option value="{{ script.entity_id }}">{{ script.friendly_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" id="generateBtn">
+                                <i class="fas fa-plus"></i> Generate URL
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card" id="resultCard" style="display: none;">
+                <div class="card-header">
+                    <h2><i class="fas fa-check-circle"></i> Generated URL</h2>
+                </div>
+                
+                <div class="card-body">
+                    <div class="url-display">
+                        <div class="url-container">
+                            <input type="text" id="generatedUrl" readonly class="url-input">
+                            <button class="btn btn-secondary" onclick="copyToClipboard()">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="url-info">
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Expires in: <span id="expiryTime"></span></span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Single use only</span>
+                        </div>
+                    </div>
+
+                    <div class="url-actions">
+                        <button class="btn btn-success" onclick="testUrl()">
+                            <i class="fas fa-play"></i> Test URL
+                        </button>
+                        <button class="btn btn-info" onclick="generateNew()">
+                            <i class="fas fa-refresh"></i> Generate New
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="loadingCard" style="display: none;">
+                <div class="card-body text-center">
+                    <div class="loading-spinner">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Generating URL...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-info-circle"></i> How it works</h3>
+                    <ul>
+                        <li>Select a script from your Home Assistant instance</li>
+                        <li>Generate a secure, temporary URL</li>
+                        <li>Use the URL anywhere - it will trigger your script</li>
+                        <li>URLs expire after 10 minutes</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3><i class="fas fa-shield-alt"></i> Security</h3>
+                    <ul>
+                        <li>Cryptographically secure tokens</li>
+                        <li>Single-use URLs</li>
+                        <li>Automatic expiration</li>
+                        <li>No authentication required</li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', path='/js/app.js') }}"></script>
+</body>
+</html> 

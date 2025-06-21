@@ -1,0 +1,49 @@
+name: "Script URL Generator"
+version: "1.0.0"
+slug: "script_url_generator"
+description: "Generate temporary, internet-accessible URLs to trigger Home Assistant scripts"
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+startup: application
+init: false
+ports:
+  8080/tcp: 8080
+ports_description:
+  8080/tcp: "Web interface"
+ingress: true
+ingress_port: 8080
+panel_icon: mdi:link-variant
+homeassistant_api: true
+options:
+  token_expiry_minutes: 10
+  max_tokens_per_script: 5
+  enable_logging: true
+schema:
+  token_expiry_minutes:
+    name: "Token Expiry (minutes)"
+    description: "How long generated URLs remain valid"
+    default: 10
+    required: true
+    type: integer
+    range:
+      min: 1
+      max: 1440
+  max_tokens_per_script:
+    name: "Max Tokens per Script"
+    description: "Maximum number of active tokens per script"
+    default: 5
+    required: true
+    type: integer
+    range:
+      min: 1
+      max: 20
+  enable_logging:
+    name: "Enable Logging"
+    description: "Log access attempts and triggered events"
+    default: true
+    required: true
+    type: boolean 

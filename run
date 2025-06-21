@@ -1,0 +1,73 @@
+#!/usr/bin/env python3
+"""
+Local development runner for Script URL Generator
+This script sets up the environment and runs the addon locally for testing
+"""
+
+import os
+import sys
+import subprocess
+from pathlib import Path
+
+def setup_environment():
+    """Set up environment variables for local development"""
+    env_vars = {
+        'SUPERVISOR_TOKEN': 'your_supervisor_token_here',  # Replace with actual token
+        'HASS_URL': 'http://localhost:8123',  # Local Home Assistant URL
+        'TOKEN_EXPIRY_MINUTES': '10',
+        'MAX_TOKENS_PER_SCRIPT': '5',
+        'ENABLE_LOGGING': 'true'
+    }
+    
+    for key, value in env_vars.items():
+        os.environ[key] = value
+        print(f"Set {key}={value}")
+
+def install_dependencies():
+    """Install Python dependencies"""
+    try:
+        subprocess.run([sys.executable, '-m', 'pip', 'install', '-r', 'requirements.txt'], 
+                      check=True, capture_output=True)
+        print("✓ Dependencies installed successfully")
+    except subprocess.CalledProcessError as e:
+        print(f"✗ Failed to install dependencies: {e}")
+        return False
+    return True
+
+def run_addon():
+    """Run the addon locally"""
+    print("Starting Script URL Generator...")
+    print("Access the addon at: http://localhost:8080")
+    print("Press Ctrl+C to stop")
+    
+    try:
+        subprocess.run([sys.executable, 'main.py'])
+    except KeyboardInterrupt:
+        print("\nAddon stopped by user")
+    except Exception as e:
+        print(f"Error running addon: {e}")
+
+def main():
+    """Main function"""
+    print("Script URL Generator - Local Development")
+    print("=" * 50)
+    
+    # Check if we're in the right directory
+    if not Path('main.py').exists():
+        print("Error: main.py not found. Please run this script from the addon directory.")
+        sys.exit(1)
+    
+    # Setup environment
+    print("Setting up environment...")
+    setup_environment()
+    
+    # Install dependencies
+    print("Installing dependencies...")
+    if not install_dependencies():
+        sys.exit(1)
+    
+    # Run the addon
+    run_addon()
+
+if __name__ == '__main__':
+    main() 
